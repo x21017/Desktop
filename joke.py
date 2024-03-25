@@ -1,4 +1,5 @@
 import requests
+import subprocess
 
 # ジョークを取得する関数
 def joke():
@@ -15,3 +16,10 @@ if __name__ == '__main__':
     print("Setup:", setup)
     print("Punchline:", punchline)
     print("Id", id)
+
+    if id % 2 == 0:
+        print("Playing male scream sound...")
+        subprocess.Popen(['mpg321', 'male_scream.mp3'])
+    else:
+        print("Playing 'Ou!' sound...")
+        subprocess.Popen(['mpg321', 'ou.mp3'])
