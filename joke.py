@@ -1,5 +1,7 @@
 import requests
 import subprocess
+import schedule
+import time
 
 # ジョークを取得する関数
 def joke():
@@ -11,7 +13,7 @@ def joke():
 
 
 # この関数を呼び出してジョークとIDを取得する
-if __name__ == '__main__':
+def print_joke_and_play_sound():
     setup, punchline, id = joke()
     print("Setup:", setup)
     print("Punchline:", punchline)
@@ -23,3 +25,11 @@ if __name__ == '__main__':
     else:
         print("Playing 'Ou!' sound...")
         subprocess.Popen(['mpg321', 'ou.mp3'])
+
+# 定期的にジョークを印刷し、効果音を再生するジョブをスケジュール
+schedule.every(10).seconds.do(print_joke_and_play_sound)
+
+# メインループ
+while True:
+    schedule.run_pending()
+    time.sleep(1)
