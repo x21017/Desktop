@@ -26,7 +26,7 @@ def print_joke_and_play_sound():
         print("Playing 'Ou!' sound...")
         subprocess.Popen(['mpg321', 'ou.mp3'])
 
-# 定期的にジョークを印刷し、効果音を再生するジョブをスケジュール
+# 定期的にジョークを取得し、効果音を再生する
 schedule.every(10).seconds.do(print_joke_and_play_sound)
 
 # メインループ
