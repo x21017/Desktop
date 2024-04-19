@@ -16,7 +16,5 @@ def environmental_sensor_data():
 data = environmental_sensor_data()
 if data:
     print("取得したデータ:", data)
-    # データの処理を行う
-    # 例: データの解析や可視化などを行う
 else:
     print("データを取得できませんでした")
