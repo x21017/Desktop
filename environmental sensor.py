@@ -3,29 +3,52 @@ import subprocess
 import schedule
 import time
 
-# ジョークを取得する関数
-def joke():
-    url = "https://sensor-api.sysken.net/get/sensor"  # ジョークAPIのURL
-    headers = {"Accept": "application/json"}  # JSON形式のデータを要求するヘッダー
-    response = requests.get(url, headers=headers)  # リクエストを送信してレスポンスを取得
-    joke_data = response.json()  # レスポンスからJSONデータを取得
-    return joke_data["id"], joke_data["time_measured"], joke_data["area_id"], joke_data["temperature"], joke_data["relative_humidity"],joke_data["ambient_light"], joke_data["barometric_pressure"], joke_data["sound_noise"], joke_data["eTVOC"], joke_data["eCO2"], joke_data["discomfort_index"], joke_data["heat_stroke"], joke_data["vibration_information"], joke_data["si_value"], joke_data["pga"], joke_data["seismic_intensity"], joke_data["date"]  # ジョークとIDを返す
-
-
-# この関数を呼び出してジョークとIDを取得する
-def print_joke_and_play_sound():
-    id = joke()
-    print("id:", id)
+# 気象データを取得して表示する関数
+def print_weather_data():
+    url = "https://sensor-api.sysken.net/get/sensor"  # 気象APIのURL
+    response = requests.get(url)  # リクエストを送信してレスポンスを取得
+    weather_data = response.json()  # レスポンスからJSONデータを取得
     
-    if id % 2 == 0:
-        print("Playing male scream sound...")
-        subprocess.Popen(['mpg321', 'male_scream.mp3'])
-    else:
-        print("Playing 'Ou!' sound...")
-        subprocess.Popen(['mpg321', 'ou.mp3'])
+    # 必要な属性を取得
+    id = weather_data["id"]
+    time_measured = weather_data["time_measured"]
+    area_id = weather_data["area_id"]
+    temperature = weather_data["temperature"]
+    relative_humidity = weather_data["relative_humidity"]
+    ambient_light = weather_data["ambient_light"]
+    barometric_pressure = weather_data["barometric_pressure"]
+    sound_noise = weather_data["sound_noise"]
+    eTVOC = weather_data["eTVOC"]
+    eCO2 = weather_data["eCO2"]
+    discomfort_index = weather_data["discomfort_index"]
+    heat_stroke = weather_data["heat_stroke"]
+    vibration_information = weather_data["vibration_information"]
+    si_value = weather_data["si_value"]
+    pga = weather_data["pga"]
+    seismic_intensity = weather_data["seismic_intensity"]
+    date = weather_data["date"]
 
-# 定期的にジョークを取得し、効果音を再生する
-schedule.every(10).seconds.do(print_joke_and_play_sound)
+    # 取得した値を表示
+    print("ID:", id)
+    print("Time Measured:", time_measured)
+    print("Area ID:", area_id)
+    print("Temperature:", temperature)
+    print("Relative Humidity:", relative_humidity)
+    print("Ambient Light:", ambient_light)
+    print("Barometric Pressure:", barometric_pressure)
+    print("Sound Noise:", sound_noise)
+    print("eTVOC:", eTVOC)
+    print("eCO2:", eCO2)
+    print("Discomfort Index:", discomfort_index)
+    print("Heat Stroke:", heat_stroke)
+    print("Vibration Information:", vibration_information)
+    print("SI Value:", si_value)
+    print("PGA:", pga)
+    print("Seismic Intensity:", seismic_intensity)
+    print("Date:", date)
+
+# 定期的に気象データを取得して表示する
+schedule.every(10).seconds.do(print_weather_data)
 
 # メインループ
 while True:
