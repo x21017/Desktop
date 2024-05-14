@@ -5,7 +5,7 @@ import subprocess
 from datetime import datetime
 import pytz
 
-# 日本時間のタイムゾーンを設定
+# 日本時間を設定
 jst = pytz.timezone('Asia/Tokyo')
 
 def environmental_sensor_data():
