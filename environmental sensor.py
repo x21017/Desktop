@@ -65,12 +65,12 @@ def job():
                     condition_met_duration += 5  # 条件が続いている場合は5秒加算
                 else:
                     condition_met = True
-                    condition_met_duration = 5  # 条件が初めて満たされた場合は10秒に設定
+                    condition_met_duration = 5  # 条件が初めて満たされた場合は5秒に設定
             else:
                 condition_met = False
                 condition_met_duration = 0  # 条件が満たされていない場合はリセット
             
-            # 条件が10秒続いているかを確認
+            # 条件が30秒続いているかを確認
             if condition_met_duration >= 30:
                 print("条件が30秒間続いたので音を流します")
                 play_sounds()  # 音を順番に再生
@@ -85,7 +85,7 @@ def job():
 # 初回の実行
 job()
 
-# 50秒ごとにジョブをスケジュール
+# 5秒ごとにジョブをスケジュール
 schedule.every(5).seconds.do(job)
 
 # ループしてスケジュールされたジョブを実行

@@ -1,1 +1,1 @@
-https://icanhazdadjoke.com/
+https://sensor-api.sysken.net/get/sensor
