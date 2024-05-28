@@ -60,19 +60,19 @@ def job():
             print("取得したデータ: 音量 =", noise_data, ", 人数 =", total_people)
             
             # 条件を確認
-            if total_people >= 3 and noise_data <= 90: # 人数が3人以上かつ音量が90以下の時
+            if total_people >= 1 and noise_data <= 50: # 人数が1人以上かつ音量が50以下の時
                 if condition_met:
-                    condition_met_duration += 5  # 条件が続いている場合は5秒加算
+                    condition_met_duration += 30  # 条件が続いている場合は5秒加算
                 else:
                     condition_met = True
-                    condition_met_duration = 5  # 条件が初めて満たされた場合は5秒に設定
+                    condition_met_duration = 30  # 条件が初めて満たされた場合は5秒に設定
             else:
                 condition_met = False
                 condition_met_duration = 0  # 条件が満たされていない場合はリセット
             
-            # 条件が30秒続いているかを確認
-            if condition_met_duration >= 30:
-                print("条件が30秒間続いたので音を流します")
+            # 条件が25分（1500秒）続いているかを確認
+            if condition_met_duration >= 1500:
+                print("条件が25分間続いたので音を流します")
                 play_sounds()  # 音を順番に再生
                 condition_met_duration = 0  # 音を流した後はリセット
         else:
@@ -85,8 +85,8 @@ def job():
 # 初回の実行
 job()
 
-# 5秒ごとにジョブをスケジュール
-schedule.every(5).seconds.do(job)
+# 30秒ごとにジョブをスケジュール
+schedule.every(30).seconds.do(job)
 
 # ループしてスケジュールされたジョブを実行
 while True:
