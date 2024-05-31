@@ -62,10 +62,10 @@ def job():
             # 条件を確認
             if total_people >= 1 and noise_data <= 50: # 人数が1人以上かつ音量が50以下の時
                 if condition_met:
-                    condition_met_duration += 30  # 条件が続いている場合は5秒加算
+                    condition_met_duration += 30  # 条件が続いている場合は30秒加算
                 else:
                     condition_met = True
-                    condition_met_duration = 30  # 条件が初めて満たされた場合は5秒に設定
+                    condition_met_duration = 30  # 条件が初めて満たされた場合は30秒に設定
             else:
                 condition_met = False
                 condition_met_duration = 0  # 条件が満たされていない場合はリセット
