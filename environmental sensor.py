@@ -40,9 +40,12 @@ def calculate_total_people(staywatch_data):
 
 def play_sounds():
     """音を順番に再生する関数"""
-    sound_files = ['ou.mp3', 'male_scream.mp3', 'test.mp3']
+    sound_files = ['break_start.wav', 'morning.mp3', 'break_finish.wav']
     for sound_file in sound_files:
-        subprocess.call(['mpg321', sound_file])
+        if sound_file.endswith('.mp3'):
+            subprocess.call(['mpg321', sound_file])
+        elif sound_file.endswith('.wav'):
+            subprocess.call(['aplay', sound_file])
 
 def job():
     global condition_met_duration, condition_met
@@ -60,7 +63,7 @@ def job():
             print("取得したデータ: 音量 =", noise_data, ", 人数 =", total_people)
             
             # 条件を確認
-            if total_people >= 1 and noise_data <= 50: # 人数が1人以上かつ音量が50以下の時
+            if total_people >= 1 and noise_data <= 55: # 人数が1人以上かつ音量が50以下の時
                 if condition_met:
                     condition_met_duration += 30  # 条件が続いている場合は30秒加算
                 else:
