@@ -39,13 +39,19 @@ def calculate_total_people(staywatch_data):
     return total_people
 
 def play_sounds():
-    """音を順番に再生する関数"""
+    # 音を順番に再生する関数
     sound_files = ['break_start.wav', 'morning.mp3', 'break_finish.wav']
     for sound_file in sound_files:
         if sound_file.endswith('.mp3'):
             subprocess.call(['mpg321', sound_file])
         elif sound_file.endswith('.wav'):
             subprocess.call(['aplay', sound_file])
+
+def save_time():
+    # 現在の日本時間を保存する関数
+    now = datetime.now(jst)
+    with open('condition_met_time.txt', 'a') as file:
+        file.write(f"Condition met at: {now.strftime('%Y-%m-%d %H:%M:%S %Z')}\n")
 
 def job():
     global condition_met_duration, condition_met
@@ -63,7 +69,7 @@ def job():
             print("取得したデータ: 音量 =", noise_data, ", 人数 =", total_people)
             
             # 条件を確認
-            if total_people >= 1 and noise_data <= 55: # 人数が1人以上かつ音量が50以下の時
+            if total_people >= 1 and noise_data <= 55: # 人数が1人以上かつ音量が55以下の時
                 if condition_met:
                     condition_met_duration += 30  # 条件が続いている場合は30秒加算
                 else:
@@ -77,6 +83,7 @@ def job():
             if condition_met_duration >= 1500:
                 print("条件が25分間続いたので音を流します")
                 play_sounds()  # 音を順番に再生
+                save_time()  # 条件が満たされた時間を保存
                 condition_met_duration = 0  # 音を流した後はリセット
         else:
             print("データを取得できませんでした")
