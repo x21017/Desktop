@@ -13,7 +13,7 @@ condition_met_duration = 0
 condition_met = False
 
 def environmental_sensor_data():
-    url = 'https://enviroment-backend.kajilab.dev/'
+    url = 'https://enviroment-backend.kajilab.dev/get/sensor'
     try:
         response = requests.get(url)
         response.raise_for_status()  # エラーがあれば例外を発生させる
