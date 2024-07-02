@@ -69,7 +69,7 @@ def job():
             print("取得したデータ: 音量 =", noise_data, ", 人数 =", total_people)
             
             # 条件を確認
-            if total_people >= 1 and noise_data <= 70: # 人数が1人以上かつ音量が55以下の時
+            if total_people >= 1 and noise_data <= 70: # 人数が1人以上かつ音量が70以下の時
                 if condition_met:
                     condition_met_duration += 30  # 条件が続いている場合は30秒加算
                 else:
