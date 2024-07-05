@@ -4,6 +4,7 @@ import time
 import subprocess
 from datetime import datetime
 import pytz
+import random
 
 # 日本時間を設定
 jst = pytz.timezone('Asia/Tokyo')
@@ -39,13 +40,15 @@ def calculate_total_people(staywatch_data):
     return total_people
 
 def play_sounds():
-    # 音を順番に再生する関数
-    sound_files = ['break_start.wav', 'morning.mp3', 'break_finish.wav']
-    for sound_file in sound_files:
-        if sound_file.endswith('.mp3'):
-            subprocess.call(['mpg321', sound_file])
-        elif sound_file.endswith('.wav'):
-            subprocess.call(['aplay', sound_file])
+    # break_start.wav と break_finish.wav を必ず再生し、ランダムに sea.mp3, life.mp3, summer.mp3 を再生する
+    subprocess.call(['aplay', 'break_start.wav'])
+    
+    sound_files = ['sea.mp3', 'life.mp3', 'summer.mp3']
+    chosen_sound = random.choice(sound_files)
+    
+    subprocess.call(['mpg321', chosen_sound])
+    
+    subprocess.call(['aplay', 'break_finish.wav'])
 
 def save_time():
     # 現在の日本時間を保存する関数
@@ -69,7 +72,7 @@ def job():
             print("取得したデータ: 音量 =", noise_data, ", 人数 =", total_people)
             
             # 条件を確認
-            if total_people >= 1 and noise_data <= 70: # 人数が1人以上かつ音量が70以下の時
+            if total_people >= 1 and noise_data <= 65: # 人数が1人以上かつ音量が70以下の時
                 if condition_met:
                     condition_met_duration += 30  # 条件が続いている場合は30秒加算
                 else:
