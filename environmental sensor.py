@@ -43,7 +43,7 @@ def play_sounds():
     # break_start.wav と break_finish.wav を必ず再生し、ランダムに sea.mp3, life.mp3, summer.mp3 を再生する
     subprocess.call(['aplay', 'break_start.wav'])
     
-    sound_files = ['sea.mp3', 'life.mp3', 'summer.mp3']
+    sound_files = ['syaro.mp3', 'notmove.mp3']
     chosen_sound = random.choice(sound_files)
     
     subprocess.call(['mpg321', chosen_sound])
